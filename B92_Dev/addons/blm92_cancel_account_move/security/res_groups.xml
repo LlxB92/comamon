@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="group_cancel_account_move" model="res.groups">
+        <!-- <field name="name">Allow journal related invoice or entry cancellations</field> -->
+        <field name="name">Permitir cancelación de asientos contables o facturas en los diarios</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="action_view_stock_pickings_to_invoice" model="ir.actions.act_window">
+      <field name="name">Facturar albaranes</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">stock.picking</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree</field>
+      <field name="context">{'create': False}</field>
+      <field name="domain">[('state', '=', 'done'), ('sale_id', '!=', False), ('picking_type_code', '=', 'outgoing'), '|', ('invoice_ids.state', '=', 'cancel'), ('invoice_ids', '=', False)]</field>
+      <field name="search_view_id" ref="stock.view_picking_internal_search"/>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          No se encontraron albaranes pendientes por facturar
+          <!-- No stock pickings to invoice found -->
+        </p><p>
+        Puedes seleccionar todos los albaranes y facturarlos de una sola vez ,<br/>
+        o revisar cada albarán y facturarlos uno a uno.
+        <!-- You can select all stock pickings and invoice them in batch,<br/> -->
+        <!-- or check every stock picking and invoice them one by one. -->
+      </p>
+      </field>
+    </record>
+
+    <menuitem id="menu_stock_pickings_to_invoice"
+              name="Facturar albaranes de salida"
+              action="blm92_facturar_albaranes.action_view_stock_pickings_to_invoice"
+              parent="stock.menu_stock_warehouse_mgmt"
+              sequence="136"/>
+  </data>
+</odoo>
