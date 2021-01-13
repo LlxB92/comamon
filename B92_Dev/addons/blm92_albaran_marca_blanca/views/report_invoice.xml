@@ -1,0 +1,28 @@
+<odoo>
+    <data>
+        <template id="blm92_layout">
+            <!--
+                Para llamar a otro layout hay que poner el <t t-raw="0"/>
+                Ese es obligatorio y mágico
+                Ver documentación
+                https://www.odoo.com/documentation/12.0/reference/qweb.html#calling-sub-templates
+
+                Si se va a usar una variable para la lógica, esta hay que definirla dentro de
+                un modelo de reporte custom y crear un reporte custom también para el reporte original de
+                donde se hereda y definir la variable ahí también.
+             -->
+            <t t-if="blm92_albaran_marca_blanca" t-call="web.basic_layout"><t t-raw="0"/></t>
+            <t t-else="else" t-call="web.external_layout"><t t-raw="0"/></t>
+        </template>
+
+        <template id="blm92_report_marca_blanca" inherit_id="stock.report_picking">
+            <xpath expr="//t[@t-call='web.external_layout']" position="attributes">
+                <!--
+                    En los layout de Odoo no se puede poner lógica de control (if else etc ...)
+                    Hay que crear un layout aparte y definir en ese la lógica necesaria
+                -->
+                <attribute name="t-call">blm92_albaran_marca_blanca.blm92_layout</attribute>
+            </xpath>
+        </template>
+    </data>
+</odoo>

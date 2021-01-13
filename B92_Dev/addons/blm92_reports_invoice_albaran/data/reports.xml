@@ -2,8 +2,6 @@
 <odoo>
     <data>
         <template id="report_invoice_document_albaran" inherit_id="account.report_invoice_document">
-            <xpath expr="//table[@name='invoice_line_table']/thead/tr/th[@name='th_source']" position="replace"></xpath>
-
             <xpath expr="//table[@name='invoice_line_table']/tbody/t[@t-foreach='o.invoice_line_ids']/tr" position="replace">
                 <t t-if="not line.move_line_ids">
                     <tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">

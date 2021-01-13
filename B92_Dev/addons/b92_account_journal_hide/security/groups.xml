@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="b92_group_show_journal_dashboard" model="res.groups">
+        <field name="name">Mostrar diarios ocultos</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+</odoo>

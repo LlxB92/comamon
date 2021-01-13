@@ -1,0 +1,18 @@
+<odoo>
+    <data>
+        <record id="b92_account_journal_dashboard_kanban_view_hide" model="ir.ui.view">
+            <field name="name">b92.account.journal.dashboard.kanban.hide</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.account_journal_dashboard_kanban_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//kanban/field[last()]" position="before">
+                    <field name="b92_dashboard"/>
+                </xpath>
+
+                <xpath expr="//t[@t-name='kanban-box']/div" position="attributes">
+                    <attribute name="t-if">record.b92_dashboard.raw_value</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="blm92_invoice_timesheet_search_view" model="ir.ui.view">
+            <field name="name">blm92.stock.picking.search</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_internal_search" />
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='backorder']" position="after">
+                    <separator/>
+                    <filter name="a_facturar" string="A facturar"
+                            domain="[('blm92_is_invoiceable', '=', True)]"
+                            help="Filtrar albaranes pendientes de facturar" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

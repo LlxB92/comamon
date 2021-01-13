@@ -8,7 +8,7 @@
       <field name="view_type">form</field>
       <field name="view_mode">tree</field>
       <field name="context">{'create': False}</field>
-      <field name="domain">[('state', '=', 'done'), ('sale_id', '!=', False), ('picking_type_code', '=', 'outgoing'), '|', ('invoice_ids.state', '=', 'cancel'), ('invoice_ids', '=', False)]</field>
+      <field name="domain">[('blm92_is_invoiceable', '=', True)]</field>
       <field name="search_view_id" ref="stock.view_picking_internal_search"/>
       <field name="help" type="html">
         <p class="o_view_nocontent_smiling_face">
@@ -26,7 +26,7 @@
     <menuitem id="menu_stock_pickings_to_invoice"
               name="Facturar albaranes de salida"
               action="blm92_facturar_albaranes.action_view_stock_pickings_to_invoice"
-              parent="stock.menu_stock_warehouse_mgmt"
+              parent="sale.menu_sale_invoicing"
               sequence="136"/>
   </data>
 </odoo>

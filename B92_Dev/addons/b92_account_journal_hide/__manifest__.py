@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Facturar Albaranes",
+    'name': "Ocultar diarios en el dashboard ",
 
     'summary': """
-        Permite generar seleccionar albaranes y generar facturas a partir de esta selección
+        Permite ocultar diarios en el dashboard especificados por el administrador.
     """,
 
     'description': """
-        Permite generar seleccionar albaranes y generar facturas a partir de esta selección
+        Permite ocultar diarios  en el dashboard especificados por el administrador.
     """,
 
     'author': "Juan Carlos Fernández",
@@ -20,12 +20,12 @@
     'version': '12.0.1.0.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['stock_picking_invoice_link'],
+    'depends': ['account'],
 
     # always loaded
     'data': [
-        'views/invoice_from_stock_pickings.xml',
-        'views/invoiced_stock_picking_search_view.xml',
-        'wizard/stock_picking_make_invoice_advance_views.xml',
+        'security/groups.xml',
+        'data/config_parameter_journal_hide.xml',
+        'views/account_journal_dashboard_view.xml',
     ],
 }

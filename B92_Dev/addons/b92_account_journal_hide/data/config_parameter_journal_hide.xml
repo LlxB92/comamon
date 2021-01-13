@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="b92_hide_journals" model="ir.config_parameter">
+            <field name="key">b92.hide.journals</field>
+            <field name="value">b92</field>
+        </record>
+
+    </data>
+</odoo>

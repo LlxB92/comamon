@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Facturar Albaranes",
+    'name': "Albarán Marca Blanca",
 
     'summary': """
-        Permite generar seleccionar albaranes y generar facturas a partir de esta selección
+        Permite generar un reporte albarán sin cabecera ni pie de pagina.
     """,
 
     'description': """
-        Permite generar seleccionar albaranes y generar facturas a partir de esta selección
+        Permite generar un reporte albarán sin cabecera ni pie de pagina.
     """,
 
     'author': "Juan Carlos Fernández",
@@ -20,12 +20,11 @@
     'version': '12.0.1.0.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['stock_picking_invoice_link'],
+    'depends': ['stock'],
 
     # always loaded
     'data': [
-        'views/invoice_from_stock_pickings.xml',
-        'views/invoiced_stock_picking_search_view.xml',
-        'wizard/stock_picking_make_invoice_advance_views.xml',
+        'views/report_invoice.xml',
+        'views/stock_report_views.xml'
     ],
 }
