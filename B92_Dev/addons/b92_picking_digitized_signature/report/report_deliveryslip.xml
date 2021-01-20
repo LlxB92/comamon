@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="b92_report_delivery_document_digital_signature" inherit_id="stock.report_delivery_document">
+            <xpath expr="//div[@class='page']/p[last()]" position="before">
+                <div class="row justify-content-center mb16">
+                    <div class="col-4" name="right_box">
+                        <h3>Firma Digital</h3>
+                        <img t-attf-src="data:image/*;base64,{{o.b92_digital_signature}}"/>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>
