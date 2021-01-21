@@ -1,9 +1,14 @@
-from odoo import api, models
+from odoo import api, models, fields
 
 
 # noinspection PyProtectedMember
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
+
+    b92_merged_invoice = fields.Many2one('account.invoice', string='Factura que la fusiona', copy=False)
+    b92_used_invoices = fields.One2many(
+        'account.invoice', inverse_name='b92_merged_invoice', string='Facturas usadas en la fusión', copy=False
+    )
 
     @api.multi
     def _b92_write_extra_data(self, old_inv_rs):
@@ -66,7 +71,21 @@ class AccountInvoice(models.Model):
             for inv_line in new_inv.invoice_line_ids:
                 inv_line.write(inv_line._b92_write_extra_data(old_inv_line_rs))
 
+            # Asociar las facturas usadas con la factura fusionada
+            old_inv_rs.write({'b92_merged_invoice': new_inv_id})
+
         return inv_dct
+
+    @api.multi
+    def unlink(self):
+        used_invoices = self.mapped('b92_used_invoices').filtered(lambda i: i.state == 'cancel')
+        res = super(AccountInvoice, self).unlink()
+
+        # Solo pasar a cancelado si se borró correctamente
+        if res:
+            used_invoices.action_invoice_draft()
+
+        return res
 
 
 class AccountInvoiceLine(models.Model):

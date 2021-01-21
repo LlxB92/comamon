@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="b92_action_account_report_general_ledger" model="ir.actions.client">
+            <field name="name">Caja Tienda</field>
+            <field name="tag">account_report</field>
+            <field name="context"
+                   eval="{'model': 'account.general.ledger', 'b92_report_account_general_ledger': True}"
+            />
+        </record>
+
+        <menuitem id="menu_action_account_report_general_ledger" name="Caja Tienda"
+                  action="b92_account_general_ledger_limited.b92_action_account_report_general_ledger"
+                  parent="account_accountant.menu_accounting"
+        />
+
+    </data>
+</odoo>
