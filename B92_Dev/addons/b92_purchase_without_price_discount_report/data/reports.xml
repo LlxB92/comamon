@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="b92_purchase_without_price_discount_tmpl">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
+                        <t t-set="address">
+                            <div t-field="o.partner_id"
+                                 t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                            <p t-if="o.partner_id.vat"><t t-esc="o.company_id.country_id.vat_label or 'Tax ID'"/>: <span t-field="o.partner_id.vat"/></p>
+                        </t>
+                        <t t-if="o.dest_address_id">
+                            <t t-set="information_block">
+                                <strong>Dirección de Envío:</strong>
+                                <div t-if="o.dest_address_id">
+                                    <div t-field="o.dest_address_id"
+                                         t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}' name="purchase_shipping_address"/>
+                                </div>
+
+                            </t>
+                        </t>
+                        <t t-else="">
+                            <t t-set="information_block">
+                                <strong>Dirección de Envío:</strong>
+                                <div t-if="o.picking_type_id and o.picking_type_id.warehouse_id">
+                                    <span t-field="o.picking_type_id.warehouse_id.name"/>
+                                    <div t-field="o.picking_type_id.warehouse_id.partner_id" t-options='{"widget": "contact", "fields": ["address", "phone"], "no_marker": True, "phone_icons": True}'/>
+                                </div>
+                            </t>
+                        </t>
+                        <div class="page">
+                            <div class="oe_structure"/>
+
+                            <h2 t-if="o.state == 'draft'">Solicitud de presupuesto #<span t-field="o.name"/></h2>
+                            <h2 t-if="o.state in ['sent', 'to approve']">Pedido de compra #<span t-field="o.name"/></h2>
+                            <h2 t-if="o.state in ['purchase', 'done']">Confirmación del pedido de compra  #<span t-field="o.name"/></h2>
+                            <h2 t-if="o.state == 'cancel'">Pedido de compra cancelado #<span t-field="o.name"/></h2>
+
+                            <div id="informations" class="row mt32 mb32">
+                                <div t-if="o.name" class="col-3 bm-2">
+                                    <strong>Ref. de nuestra orden:</strong>
+                                    <p t-field="o.name" class="m-0"/>
+                                </div>
+                                <div t-if="o.partner_ref" class="col-3 bm-2">
+                                    <strong>Su referencia de pedido:</strong>
+                                    <p t-field="o.partner_ref" class="m-0"/>
+                                </div>
+                                <div t-if="o.date_order" class="col-3 bm-2">
+                                    <strong>Fecha de la orden:</strong>
+                                    <p t-field="o.date_order" class="m-0"/>
+                                </div>
+                            </div>
+
+                            <table class="table table-sm o_main_table">
+                                <thead>
+                                    <tr>
+                                        <th><strong>Descripción</strong></th>
+                                        <th><strong>Impuestos</strong></th>
+                                        <th class="text-center"><strong>Fecha req.</strong></th>
+                                        <th class="text-right"><strong>Cant</strong></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="o.order_line" t-as="line">
+                                        <td>
+                                            <span t-field="line.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="', '.join(map(lambda x: x.name, line.taxes_id))"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="line.date_planned"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="line.product_qty"/>
+                                            <span t-field="line.product_uom.name" groups="uom.group_uom"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div id="total" class="row justify-content-end">
+                                <div class="col-4">
+                                    <table class="table table-sm">
+                                        <tr class="border-black">
+                                            <td><strong>Subtotal</strong></td>
+                                            <td class="text-right">
+                                                <span t-field="o.amount_untaxed"
+                                                      t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Taxes</td>
+                                            <td class="text-right">
+                                                <span t-field="o.amount_tax"
+                                                      t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                            </td>
+                                        </tr>
+                                        <tr class="border-black o_total">
+                                            <td><strong>Total</strong></td>
+                                            <td class="text-right">
+                                                <span t-field="o.amount_total"
+                                                      t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <p t-field="o.notes"/>
+                            <div class="oe_structure"/>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <report
+                string="Pedido de Compra pero sin precio ni descuento"
+                id="b92_purchase_without_price_discount_report"
+                model="purchase.order"
+                report_type="qweb-pdf"
+                name="b92_purchase_without_price_discount_report.b92_purchase_without_price_discount_tmpl"
+                file="b92_purchase_without_price_discount_report.b92_purchase_without_price_discount_tmpl"
+                print_report_name="
+                (object.state in ('draft', 'sent') and 'Solicitud de presupuesto - %s' % (object.name) or
+                'Pedido de Compra - %s' % (object.name))"
+        />
+    </data>
+</odoo>
