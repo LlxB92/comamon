@@ -57,7 +57,6 @@
                                 <thead>
                                     <tr>
                                         <th><strong>Descripción</strong></th>
-                                        <th><strong>Impuestos</strong></th>
                                         <th class="text-right"><strong>Cant</strong></th>
                                     </tr>
                                 </thead>
@@ -65,9 +64,6 @@
                                     <tr t-foreach="o.order_line" t-as="line">
                                         <td>
                                             <span t-field="line.name"/>
-                                        </td>
-                                        <td>
-                                            <span t-esc="', '.join(map(lambda x: x.name, line.taxes_id))"/>
                                         </td>
                                         <td class="text-right">
                                             <span t-field="line.product_qty"/>
