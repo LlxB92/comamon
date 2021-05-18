@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="b92_view_purchase_order_form">
+        <field name="name">b92.purchase.order.journal.form</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="b92_journal_id" required="1" options="{'no_create': True, 'no_create_edit':True}" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
