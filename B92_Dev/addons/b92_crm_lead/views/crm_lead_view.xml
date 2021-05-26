@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="b92_crm_document_case_form_view_oppor" model="ir.ui.view">
+        <field name="name">b92.crm.lead.document.form.opportunity</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group/group[last()]" position="after">
+                <group>
+                    <field name="blm_documento" widget="url"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
     <record model="ir.ui.view" id="blm_view_sale_advance_payment_inv">
         <field name="model">sale.advance.payment.inv</field>
         <field name="inherit_id" ref="sale.view_sale_advance_payment_inv" />
@@ -9,73 +22,4 @@
             </xpath>
         </field>
     </record>
-
-    <record model="ir.ui.view" id="blm_view_sale_order">
-        <field name="model">sale.order</field>
-        <field name="inherit_id" ref="sale.view_order_form" />
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='payment_term_id']" position="after">
-                <field name="blm_journal_id" />
-            </xpath>
-        </field>
-    </record>
-
-    <template id="blm_report_quotation_inherit_demo" inherit_id="account.report_invoice_document">
-        <xpath expr="//tbody[@class='invoice_tbody']//tr" position="after">
-            <t t-set="control" t-value="0" />
-            <t t-foreach="line.sale_line_ids" t-as="lin">
-                <t t-foreach="o.timesheet_ids.sorted(key=lambda r: r.helpdesk_ticket_id.id)" t-as="work">
-                    <t t-if="work.so_line.id > 0">
-                        <t t-if="lin.id == work.so_line.id">
-                            <t t-if="work.helpdesk_ticket_id.id > 0">
-                                <t t-if="work.helpdesk_ticket_id.id != control">
-                                    <tr>
-                                        <td colspan="2">
-                                            <p style="font-size: 15px; padding-left: 10px; text-align: justify; font-weight: bold;">
-                                              Solicitud <span t-field="work.helpdesk_ticket_id.solicitud"/> <span t-field="work.helpdesk_ticket_id.name"/>
-                                            </p>
-                                      </td>
-                                    </tr>
-                                    <t t-foreach="o.timesheet_ids" t-as="work_li">
-                                        <t t-if="work.helpdesk_ticket_id == work_li.helpdesk_ticket_id">
-                                            <tr>
-                                                <td>
-                                                    <p style="font-size: 14px; padding-left: 15px; text-align: justify;">
-                                                        <span t-field="work_li.date"/>
-                                                        <span t-field="work_li.name"/>
-                                                    </p>
-                                                </td>
-                                                <td>
-                                                    <p style="text-align: center;">
-                                                        <span t-esc="'%.2f'% work_li.unit_amount"/> Hrs.
-                                                    </p>
-                                                </td>
-                                            </tr>
-                                        </t>
-                                    </t>
-                                    <t t-set="control" t-value="work.helpdesk_ticket_id.id" />
-                                </t>
-                            </t>
-                            <t t-if="work.helpdesk_ticket_id.id is False">
-                                <tr>
-                                    <td>
-                                        <p style="font-size: 14px; padding-left: 10px; text-align: justify;">
-                                            <span t-field="work.date"/>
-                                            <span t-field="work.name"/>
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <p style="text-align: center;">
-                                            <span t-esc="'%.2f'% work.unit_amount"/> Hrs.
-                                        </p>
-                                    </td>
-                                </tr>
-                            </t>
-                        </t>
-                    </t>
-                </t>
-            </t>
-	    </xpath>
-    </template>
-
 </odoo>

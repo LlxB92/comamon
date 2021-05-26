@@ -27,14 +27,25 @@ class AccountInvoiceLine(models.Model):
         # Asociar las líneas de albarán a las líneas de la nueva factura fusionada
         stock_mov_rs = self.env['stock.move']
 
-        # Cada línea de la nueva factura fusionada tiene asociada las mismas lineas de ventas
-        # que su predecesora, esta lógica puede usarse para asociar adecuadamente las líneas de albaranes
         for old_inv_line in old_inv_line_rs:
             if (
-                    bool(self.sale_line_ids & old_inv_line.sale_line_ids)
-                    or bool(self.purchase_id & old_inv_line.purchase_id)
+                    # Cada línea de la nueva factura de venta fusionada tiene asociada las mismas lineas de ventas
+                    # que su predecesora, esta lógica puede usarse para asociar adecuadamente las líneas de albaranes
+                    (
+                        bool(self.sale_line_ids & old_inv_line.sale_line_ids)
+                        and self.invoice_type in ('out_invoice', 'out_refund')
+                    )
+                    # Para el caso de una facturas de proveedor fusionada la única opción es revisar lo siguiente:
+                    # si todos los campos involucrados en la fusión son iguales
+                    # entonces asociar las líneas de albaranes
+                    or (
+                        all(
+                            self.mapped(field) == old_inv_line.mapped(field)
+                            for field in self.invoice_id._get_invoice_line_key_cols()
+                        ) and self.invoice_type in ('in_invoice', 'in_refund')
+                    )
             ):
-                stock_mov_rs += old_inv_line.move_line_ids
+                stock_mov_rs |= old_inv_line.move_line_ids
 
         dct['move_line_ids'] = [(6, 0, stock_mov_rs.ids)]
         return dct

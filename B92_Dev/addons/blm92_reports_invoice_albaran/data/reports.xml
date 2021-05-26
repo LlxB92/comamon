@@ -44,7 +44,9 @@
             <xpath expr="//table[@name='invoice_line_table']/tbody/t[@t-foreach='o.invoice_line_ids']" position="after">
                 <t t-set="picking_ids" t-value="o.picking_ids.sorted(key=lambda a: a.create_date)"/>
                 <tr t-foreach="picking_ids" t-as="stock_picking">
-                    <td colspan="6"><b>Albarán: <span t-field="stock_picking.name"/></b></td>
+                    <td colspan="6">
+                        <b><span t-esc="'Albarán Proveedor: {} | Albarán: {}'.format(stock_picking.partner_ref, stock_picking.name) if stock_picking.partner_ref else 'Albarán: {}'.format(stock_picking.name)" /></b>
+                    </td>
                     <tr t-foreach="o.invoice_line_ids" t-as="invoice_line">
                         <t t-if="invoice_line.move_line_ids">
                             <t t-foreach="invoice_line.move_line_ids" t-as="stock_move">

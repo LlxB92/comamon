@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="sale_documents_view" model="ir.ui.view">
+        <field name="name">sale.documents.view</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_view_invoice']" position="before">
+                <button name="action_get_attachment_tree_view_sale" class="oe_stat_button" icon="fa-book" type="object">
+                    <field name="attachment_number" widget="statinfo" string="Documents"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>

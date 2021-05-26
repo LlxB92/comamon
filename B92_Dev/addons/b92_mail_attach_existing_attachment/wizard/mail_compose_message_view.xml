@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="b92_email_compose_message_wizard_attach_existing_attachment_form">
+        <field name="name">b92.mail.compose.message.form.attach.existing.attachment</field>
+        <field name="model">mail.compose.message</field>
+        <field name="inherit_id" ref="mail.email_compose_message_wizard_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='attachment_ids']/.." position="after">
+                <group>
+                    <field name="b92_doc_attachment_ids"
+                           widget="many2many_tags"
+                           domain="[('folder_id', '!=', False)]"
+                    />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

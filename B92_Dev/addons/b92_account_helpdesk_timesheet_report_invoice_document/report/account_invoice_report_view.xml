@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="b92_invoice_helpdesk_ticket_timesheets_show_data">
+        <t t-set="b92_ht_lst" t-value="b92_extra_data[b92_inv_line_id]['helpdesk_ticket']"/>
+        <!-- Por cada solicitud -->
+        <t t-foreach="b92_ht_lst" t-as="b92_ht_dct">
+            <t t-set="b92_helpdesk_ticket" t-value="b92_ht_dct['header']"/>
+            <t t-set="b92_ht_timesheets" t-value="b92_ht_dct['lines']"/>
+            <!-- Mostrar su código y nombre -->
+            <tr>
+                <td colspan="4">
+                    <p style="font-size: 15px; padding-left: 10px; text-align: justify; font-weight: bold;">
+                        Solicitud "<span t-field="b92_helpdesk_ticket.solicitud"/> | <span t-field="b92_helpdesk_ticket.name"/>"
+                    </p>
+                </td>
+            </tr>
+            <!-- Por cada imputación asociada a la solicitud de la línea de la factura -->
+            <t t-foreach="b92_ht_timesheets" t-as="b92_ht_timesheet">
+                <!-- Mostrar si no es facturable, su fecha, nombre y cantidad de horas -->
+                <tr>
+                    <td colspan="4">
+                        <p style="font-size: 14px; padding-left: 15px; text-align: justify;">
+                            <b t-if="b92_ht_timesheet.timesheet_invoice_type == 'non_billable'">NO FACTURABLE</b>
+                            <span t-field="b92_ht_timesheet.date"/>
+                            <span t-field="b92_ht_timesheet.name"/>
+                        </p>
+                    </td>
+                    <td>
+                        <p style="text-align: center;">
+                            <span t-esc="'%.2f'% b92_ht_timesheet.unit_amount"/> Hrs.
+                        </p>
+                    </td>
+                </tr>
+            </t>
+        </t>
+    </template>
+
+    <template id="b92_invoice_project_task_timesheet_show_data">
+        <t t-set="b92_task_lst" t-value="b92_extra_data[b92_inv_line_id]['project_task']"/>
+        <!-- Por cada tarea -->
+        <t t-foreach="b92_task_lst" t-as="b92_task_dct">
+            <t t-set="b92_project_task" t-value="b92_task_dct['header']"/>
+            <t t-set="b92_pt_timesheets" t-value="b92_task_dct['lines']"/>
+            <!-- Mostrar su nombre -->
+            <tr>
+                <td colspan="4">
+                    <p style="font-size: 15px; padding-left: 10px; text-align: justify; font-weight: bold;">
+                        Imputaciones directas en la tarea "<span t-field="b92_project_task.name"/>"
+                    </p>
+                </td>
+            </tr>
+            <!-- Por cada imputación sin solicitud de la línea de la factura -->
+            <t t-foreach="b92_pt_timesheets" t-as="b92_pt_timesheet">
+                <!-- Mostrar si no es facturable, su fecha, nombre y cantidad de horas -->
+                <tr>
+                    <td colspan="4">
+                        <p style="font-size: 14px; padding-left: 15px; text-align: justify;">
+                            <b t-if="b92_pt_timesheet.timesheet_invoice_type == 'non_billable'">NO FACTURABLE</b>
+                            <span t-field="b92_pt_timesheet.date"/>
+                            <span t-field="b92_pt_timesheet.name"/>
+                        </p>
+                    </td>
+                    <td>
+                        <p style="text-align: center;">
+                            <span t-esc="'%.2f'% b92_pt_timesheet.unit_amount"/> Hrs.
+                        </p>
+                    </td>
+                </tr>
+            </t>
+        </t>
+    </template>
+
+    <template id="b92_report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//tbody[@class='invoice_tbody']/t[@t-as='line']/tr[1]" position="after">
+            <!-- line: Líneas de la factura que esta siendo procesada -->
+            <t t-set="b92_inv_line_id" t-value="line.id"/>
+            <!-- Mostrar las solicitudes y sus imputaciones -->
+            <t t-call="b92_account_helpdesk_timesheet_report_invoice_document.b92_invoice_helpdesk_ticket_timesheets_show_data"/>
+
+            <!-- Mostrar las imputaciones de tareas, que no tengan una solicitud asociada -->
+            <t t-call="b92_account_helpdesk_timesheet_report_invoice_document.b92_invoice_project_task_timesheet_show_data"/>
+        </xpath>
+    </template>
+</odoo>

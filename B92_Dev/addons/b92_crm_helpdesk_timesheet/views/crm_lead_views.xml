@@ -1,0 +1,19 @@
+<odoo>
+    <record id="b92_crm_case_form_view_oppor" model="ir.ui.view">
+        <field name="name">b92.crm.lead.helpdesk.ticket</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+        <field name="arch" type="xml">
+            <button name="action_schedule_meeting" position="after">
+                <button class="oe_stat_button" type="object" icon="fa-life-ring"
+                        name="action_open_helpdesk_ticket" context="{'default_b92_opportunity_id': active_id}">
+                    <div class="o_stat_info">
+                        <field name="b92_helpdesk_ticket_count" class="o_stat_value"/>
+                        <span class="o_stat_text" attrs="{'invisible': [('b92_helpdesk_ticket_count', '&lt;', 2)]}"> Tickets</span>
+                        <span class="o_stat_text" attrs="{'invisible': [('b92_helpdesk_ticket_count', '&gt;', 1)]}"> Ticket</span>
+                    </div>
+                </button>
+            </button>
+        </field>
+    </record>
+</odoo>

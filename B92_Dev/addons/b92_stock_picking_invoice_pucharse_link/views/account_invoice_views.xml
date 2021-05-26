@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="b92_invoice_supplier_link_with_pickings_form">
+        <field name="name">b92.account.invoice.supplier.link.with.pickings.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Albaranes" name="pickings" attrs="{'invisible': [('picking_ids', '=', [])]}">
+                    <field name="picking_ids"/>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+</odoo>

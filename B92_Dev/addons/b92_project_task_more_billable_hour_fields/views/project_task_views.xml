@@ -1,0 +1,17 @@
+<odoo>
+    <record id="b92_view_task_form2_inherited" model="ir.ui.view">
+        <field name="name">b92.project.task.form.inherit.more.hour.fields</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="hr_timesheet.view_task_form2_inherited"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='project_hours']" position="after">
+                <group class="oe_subtotal_footer oe_right" name="project_hours_extra_info">
+                    <field name="b92_billed_hours" widget="float_time" attrs="{'invisible' : [('b92_billed_hours', '=', 0.0)]}"/>
+                    <field name="b92_pending_billable_hours" widget="float_time" attrs="{'invisible' : [('b92_pending_billable_hours', '=', 0.0)]}"/>
+                    <field name="b92_non_billable_hours" widget="float_time" attrs="{'invisible' : [('b92_non_billable_hours', '=', 0.0)]}"/>
+                    <field name="b92_done_hours" widget="float_time" class="oe_subtotal_footer_separator"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

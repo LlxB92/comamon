@@ -1,0 +1,55 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="b92_view_message_form">
+      <field name="name">b92.mail.message.form</field>
+      <field name="model">mail.message</field>
+      <field name="inherit_id" ref="mail.view_message_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="/form/sheet" position="before">
+          <header>
+            <button
+                    name="action_form_view" string="Abrir vista formulario" type="object"
+                    attrs="{'invisible':['|', '|', ('model', '=', 'ir.attachment'), ('model', '=', False), ('res_id', '=', False)]}"
+                    groups="base.group_user"
+            />
+          </header>
+        </xpath>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="b92_view_message_tree">
+      <field name="name">b92.mail.message.tree</field>
+      <field name="model">mail.message</field>
+      <field name="priority">20</field>
+      <field name="arch" type="xml">
+        <tree string="Acciones por Usuario" default_order="date desc">
+          <field name="date"/>
+          <field name="author_id"/>
+          <field name="model"/>
+          <field name="record_name"/>
+          <field name="subtype_id" string="Acción"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="b92_action_view_mail_message" model="ir.actions.act_window">
+      <field name="name">Acciones por Usuario</field>
+      <field name="res_model">mail.message</field>
+      <field name="view_mode">tree,form</field>
+      <field name="views">[['b92_mail_user_tracking.b92_view_message_tree', 'tree'], [mail.view_message_form, 'form']]</field>
+      <field name="domain">[
+        ('model', '!=', 'ir.attachment'), ('record_name', '!=', False), ('res_id', '!=', False),
+        ('author_id.user_ids', '&gt;', 2)
+      ]</field>
+      <field name="context">{'group_by': ['date:year', 'date:month', 'date:day', 'author_id', 'model', 'record_name']}</field>
+    </record>
+
+    <menuitem
+            id="b92_menu_board_my_dash"
+            parent="base.menu_board_root"
+            action="b92_mail_user_tracking.b92_action_view_mail_message"
+            sequence="5"/>
+
+  </data>
+</odoo>

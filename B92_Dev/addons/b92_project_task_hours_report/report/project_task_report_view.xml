@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="b92_project_task_hours_tmpl">
+        <t t-call="b92_project_task_hours_report.b92_project_task_hours_base_tmpl">
+            <t t-set="tasks" t-value="docs.filtered(lambda t: t.b92_iep)"/>
+        </t>
+    </template>
+
+    <report
+            id="b92_project_task_hours_report"
+            model="project.task"
+            name="b92_project_task_hours_report.b92_project_task_hours_tmpl"
+            string="Detalle de horas e imputaciones"
+            report_type="qweb-pdf"
+            multi="False"/>
+</odoo>

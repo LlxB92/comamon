@@ -1,0 +1,4 @@
+<odoo>
+    <menuitem id="menu_crm_assessment" name="Valoraciones"
+              parent="crm.crm_menu_config" sequence="92"/>
+</odoo>

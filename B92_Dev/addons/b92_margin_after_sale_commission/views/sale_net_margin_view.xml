@@ -1,0 +1,15 @@
+<odoo>
+  <data>
+    <record id="b92_sale_net_margin_sale_order" model="ir.ui.view">
+      <field name="name">view.sale.order.net.margin.percent.form</field>
+      <field name="model">sale.order</field>
+      <field name='inherit_id' ref='sale_margin.sale_margin_sale_order'/>
+      <field name="arch" type="xml">
+        <field name="margin" position="after">
+          <field name="b92_net_margin" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+          <field name="b92_net_margin_percent" widget="Percent"/>
+        </field>
+      </field>
+    </record>
+  </data>
+</odoo>
