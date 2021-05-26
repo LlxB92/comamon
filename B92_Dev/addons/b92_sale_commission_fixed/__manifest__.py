@@ -7,8 +7,9 @@
     """,
 
     'description': """
-        Asigna el estado correcto cuando se borra una factura de liquidación de comisiones.
-        Evita error de cache cuando se borra una línea de SO y se crea una nueva al mismo tiempo.
+        Asigna el estado correcto cuando se borra una factura de liquidación de comisiones sin antes cancelarla.
+        Evita error de cache en Odoo12E, cuando se borra una línea de SO, con comisión
+         y se crea una nueva al mismo tiempo, con comisión.
     """,
 
     'author': "Juan Carlos Fernández",

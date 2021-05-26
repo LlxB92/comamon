@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Asigna el estado correcto cuando se borra una factura de liquidación de comisiones.
+# Asigna el estado correcto cuando se borra una factura de liquidación de comisiones sin antes cancelarla.
 
 from odoo import models
 

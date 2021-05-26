@@ -1,0 +1,12 @@
+<odoo>
+  <record id="b92_iep_view_task_form2" model="ir.ui.view">
+    <field name="name">b92.iep.project.task.form</field>
+    <field name="model">project.task</field>
+    <field name="inherit_id" ref="project.view_task_form2"/>
+    <field name="arch" type="xml">
+      <xpath expr="//group/field[@name='displayed_image_id']" position="after">
+        <field name="b92_iep"/>
+      </xpath>
+    </field>
+  </record>
+</odoo>

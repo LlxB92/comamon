@@ -20,7 +20,7 @@
     'version': '12.0.1.0.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['stock_picking_invoice_link'],
+    'depends': ['b92_stock_picking_invoice_pucharse_link', 'b92_stock_picking_partner_reference'],
 
     # always loaded
     'data': [

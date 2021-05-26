@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="crm_documents_view" model="ir.ui.view">
+        <field name="name">crm.documents.view</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@class='oe_stat_button']" position="before">
+                <button name="action_get_attachment_tree_view_crm" class="oe_stat_button" icon="fa-book" type="object">
+                    <field name="attachment_number" widget="statinfo" string="Documents"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>

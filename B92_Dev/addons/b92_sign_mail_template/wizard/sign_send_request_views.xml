@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="b92_sign_send_request_view_form" model="ir.ui.view">
+        <field name="name">b92.sign.send.request.view.form</field>
+        <field name="model">sign.send.request</field>
+        <field name="inherit_id" ref="sign.sign_send_request_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/group/div" position="after">
+                <field name="b92_mail_template_id" options="{'no_create': True}"
+                       context="{'default_model': 'sign.template', 'default_body_html': message, 'default_subject': subject}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

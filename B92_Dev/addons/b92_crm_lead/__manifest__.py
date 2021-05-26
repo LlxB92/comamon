@@ -11,6 +11,7 @@
     "license": "AGPL-3",
     "contributors": [
         "Eduardo Tirado <et@balmes.com>",
+        "Juan Carlos Fernández Hernández <jc@balmes.com>",
     ],
     "depends": ["crm_lead_code", "sale", "sale_timesheet", "sale_subscription", "account", "account_payment_partner", "helpdesk_timesheet"],
     "data": ["views/crm_lead_view.xml"],

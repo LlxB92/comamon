@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="b92_helpdesk_ticket_view_form_inherit_disabled_on_negative_remaining_hours" model="ir.ui.view">
+      <field name='name'>b92.helpdesk.ticket.form.inherit.disabled_on_negative_remaining_hours</field>
+      <field name="model">helpdesk.ticket</field>
+      <field name="inherit_id" ref="helpdesk_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_timesheet"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='task_id']" position="after">
+          <field name="b92_prepaid" invisible="1" />
+          <field name="b92_remaining_hours" widget="float_time" attrs="{'invisible': ['|', ('b92_prepaid', '=', False), ('b92_remaining_hours','&lt;=', 8)]}" />
+          <label for="b92_remaining_hours" attrs="{'invisible': ['|', ('b92_prepaid', '=', False), ('b92_remaining_hours','&gt;', 8)]}" class="text-danger font-weight-bold"/> <field name="b92_remaining_hours" nolabel="1" widget="float_time" attrs="{'invisible': ['|', ('b92_prepaid', '=', False), ('b92_remaining_hours','&gt;', 8)]}" class="text-danger font-weight-bold" />
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>

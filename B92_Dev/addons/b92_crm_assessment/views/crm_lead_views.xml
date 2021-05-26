@@ -1,0 +1,77 @@
+<odoo>
+    <record id="b92_crm_assessment_case_kanban_view_leads" model="ir.ui.view">
+        <field name="name">b92.crm.lead.kanban.assessment</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban[1]/templates[1]/t[1]/div[1]/div[2]/div[4]/div[1]/field[@name='activity_ids']" position="after">
+                <field display="full" name="b92_assessment"/>
+                <field display="full" name="date_deadline"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="b92_crm_assessment_case_tree_view_oppor" model="ir.ui.view">
+        <field name="name">b92.crm.lead.tree.assessment</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='probability']" position="after">
+                <field name="b92_assessment"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="b92_crm_assessment_case_form_view_oppor" model="ir.ui.view">
+        <field name="name">b92.crm.lead.assessment.form.opportunity</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div/div/field[@name='probability']/following-sibling::span" position="after">
+                <span class="oe_grey"> con </span>
+            </xpath>
+            <xpath expr="//notebook/page[@name='lead']" position="after">
+                <page string="Valoraciones">
+                    <field name="b92_assessment_val_ids_domain" invisible="1"/>
+                    <field name="b92_assessment_val_ids" nolabel="1" domain="b92_assessment_val_ids_domain"
+                           options="{'no_create': True}"/>
+                </page>
+            </xpath>
+            <xpath expr="//div/div/field[@name='probability']/parent::node()/parent::node()/parent::node()/div[last()]" position="after">
+                <div class="col">
+                    <label for="b92_assessment" class="oe_edit_only"/>
+                    <div class="o_row d-flex">
+                        <field name="b92_assessment" widget="float" class="oe_inline"/>
+                        <span class="oe_grey"> %%</span>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="b92_crm_assessment_case_form_view_leads" model="ir.ui.view">
+        <field name="name">b92.crm.lead.assessment.form.leads</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='extra']" position="after">
+                <page string="Valoraciones">
+                    <field name="b92_assessment_val_ids_domain" invisible="1"/>
+                    <field name="b92_assessment_val_ids" nolabel="1" domain="b92_assessment_val_ids_domain"
+                           options="{'no_create': True}"/>
+                </page>
+            </xpath>
+            <xpath expr="//sheet/div/h1" position="after">
+                <h2 class="o_row row no-gutters d-flex">
+                    <div class="col">
+                        <label for="b92_assessment" class="oe_edit_only"/>
+                        <div class="o_row">
+                            <field name="b92_assessment" widget="float" class="oe_inline"/>
+                            <span class="oe_grey"> %%</span>
+                        </div>
+                    </div>
+                </h2>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="b92_sale_order_hours_tmpl">
+        <t t-set="tasks" t-value="docs.mapped('tasks_ids').filtered(lambda t: t.b92_iep)"/>
+        <t t-call="b92_project_task_hours_report.b92_project_task_hours_base_tmpl"/>
+    </template>
+
+    <report
+            id="b92_sale_order_hours_report"
+            model="sale.order"
+            name="b92_project_task_sale_hours_report.b92_sale_order_hours_tmpl"
+            string="Detalle de horas e imputaciones de las tareas del SO"
+            report_type="qweb-pdf"
+            multi="False"/>
+</odoo>

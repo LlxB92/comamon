@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_b92_crm_assessment_param_manager,b92.crm.assessment.param.manager,model_b92_crm_assessment_param,sales_team.group_sale_manager,1,1,1,1
+access_b92_crm_assessment_val_manager,b92.crm.assessment.val.manager,model_b92_crm_assessment_val,sales_team.group_sale_manager,1,1,1,1
+access_b92_crm_assessment_param_everyone,b92.crm.assessment.param.everyone,model_b92_crm_assessment_param,,1,0,0,0
+access_b92_crm_assessment_val_everyone,b92.crm.assessment.val.everyone,model_b92_crm_assessment_val,,1,0,0,0
