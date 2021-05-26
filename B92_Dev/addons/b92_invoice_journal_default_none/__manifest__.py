@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "B92 Arreglos del módulo de Comisiones",
+    'name': " B92 Diario de factura sin valor por defecto",
 
     'summary': """
-        Arregla errores de este módulo en Odoo12E
+        Diario de factura sin valor por defecto
     """,
 
     'description': """
-        Asigna el estado correcto cuando se borra una factura de liquidación de comisiones.
-        Evita error de cache cuando se borra una línea de SO y se crea una nueva al mismo tiempo.
+        Diario de factura sin valor por defecto
     """,
 
     'author': "Juan Carlos Fernández",
@@ -17,9 +16,9 @@
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/12.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
-    'category': 'Sales Management',
+    'category': 'Invoicing Management',
     'version': '12.0.1.0.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['sale_commission'],
+    'depends': ['account'],
 }
