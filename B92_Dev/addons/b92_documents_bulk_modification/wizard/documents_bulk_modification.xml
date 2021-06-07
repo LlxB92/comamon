@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="documents_bulk_modification_wizard_form" model="ir.ui.view">
+        <field name="name">b92.documents.bulk.modification.wizard.form</field>
+        <field name="model">b92.documents.bulk.modification</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="b92_folder_id" attrs="{'invisible': [('b92_del_folder', '!=', False)]}"/>
+                            <field name="b92_tag_ids" widget="many2many_tags" attrs="{'invisible': [('b92_del_tags', '!=', False)]}"/>
+                            <field name="b92_tag_count" readonly="1" invisible="1"/>
+                            <field name="b92_owner_id" attrs="{'invisible': [('b92_del_owner', '!=', False)]}"/>
+                            <field name="b92_partner_id" attrs="{'invisible': [('b92_del_partner', '!=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="b92_del_folder" attrs="{'invisible': [('b92_folder_id', '!=', False)]}"/>
+                            <field name="b92_del_tags" attrs="{'invisible': [('b92_tag_count', '!=', 0)]}"/>
+                            <field name="b92_del_owner" attrs="{'invisible': [('b92_owner_id', '!=', False)]}"/>
+                            <field name="b92_del_partner" attrs="{'invisible': [('b92_partner_id', '!=', False)]}"/>
+                            <field name="b92_res_model"/>
+                            <field name="b92_res_id"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string='Modificar' class="btn-primary" type="object" name="action_bulk_modification"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="b92_documents_bulk_modification_action" model="ir.actions.act_window">
+        <field name="name">Modificar múltiples archivos</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">b92.documents.bulk.modification</field>
+        <field name="binding_model_id" ref="documents.model_ir_attachment"/>
+        <field name="view_mode">form</field>
+        <field name="view_type">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- QWeb Reports -->
+        <report
+            id="account_invoice_stock_pickings"
+            model="account.invoice"
+            string="Albarán de entrega"
+            report_type="qweb-pdf"
+            name="b92_account_invoice_digitized_signature_as_stock_picking.report_invoice_stock_picking"
+            file="b92_account_invoice_digitized_signature_as_stock_picking.report_invoice_stock_picking"
+            attachment="('Albarán de entrega.pdf')"
+            print_report_name="('Albarán de entrega.pdf')"
+            groups="account.group_account_invoice"
+        />
+    </data>
+</odoo>

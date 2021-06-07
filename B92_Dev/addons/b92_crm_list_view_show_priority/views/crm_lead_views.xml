@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="crm_case_tree_view_oppor" model="ir.ui.view">
+        <field name="name">b92.crm.lead.tree.inherit.show.priority</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='priority']" position="attributes">
+                <attribute name="invisible">0</attribute>
+                <attribute name="widget">priority</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

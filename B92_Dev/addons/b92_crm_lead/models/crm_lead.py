@@ -1,7 +1,6 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
 from odoo import api, fields, models
-from datetime import datetime, timedelta
 
 
 class CrmLead(models.Model):
@@ -158,27 +157,6 @@ class HelpdeskTicket(models.Model):
                         control.write({'res_id': values['blm_incidencia_padre']})
         return res
 
-    @api.model
-    def _default_solicitud(self):
-        actual = datetime.now() + timedelta(hours=1)
-        actual = format(actual, "%Y%m%d%H%M%S")
-        return actual
-
-    @api.model
-    def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None):
-        if not (name == '' and operator == 'ilike'):
-            args += ['|', ('solicitud', 'ilike', name)]
-
-        return super(HelpdeskTicket, self)._name_search(name, args, operator, limit, name_get_uid)
-
-    @api.multi
-    def name_get(self):
-        result = []
-        for ticket in self:
-            if isinstance(ticket.id, int):
-                result.append((ticket.id, "%s" % ticket.solicitud))
-        return result
-
 
     datos ='''             SOLICITUD
 
@@ -192,12 +170,10 @@ class HelpdeskTicket(models.Model):
 
             SOLUCION'''
 
-    solicitud = fields.Char(string='Solicitud', default=_default_solicitud, index=True)
     blm_odoo8 = fields.Char(string='Id Odoo 8 Solicitud')
     description = fields.Text(default=datos)
     blm_sincargo = fields.Boolean(string='Sin Cargo', default=False)
     blm_incidencia_padre = fields.Many2one('helpdesk.ticket', string='Duplicada de')
-
 
     @api.onchange('project_id')
     def _onchange_blm_project(self):

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <template id="b92_report_picking_digital_signature" inherit_id="stock.report_picking">
+        <template id="report_picking" inherit_id="stock.report_picking">
             <xpath expr="//div[@class='page']/p[last()-1]" position="before">
                 <div class="row justify-content-center mb16" t-if="o.b92_digital_signature">
                     <div class="col-4" name="right_box">

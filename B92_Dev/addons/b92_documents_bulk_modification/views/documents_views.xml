@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="documents_view_list" model="ir.ui.view">
+        <field name="name">b92.attachments.tree.inherit.show.extra.fields</field>
+        <field name="model">ir.attachment</field>
+        <field name="inherit_id" ref="documents.documents_view_list"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="folder_id"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                <field name="owner_id"/>
+                <field name="partner_id"/>
+                <field name="type"/>
+                <xpath expr="//field[@name='create_date']" position="move"/>
+            </xpath>
+            <xpath expr="//field[@name='res_model']" position="after">
+                <field name="res_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

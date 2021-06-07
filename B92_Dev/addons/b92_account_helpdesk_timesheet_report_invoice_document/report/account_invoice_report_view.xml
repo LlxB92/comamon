@@ -10,7 +10,7 @@
             <tr>
                 <td colspan="4">
                     <p style="font-size: 15px; padding-left: 10px; text-align: justify; font-weight: bold;">
-                        Solicitud "<span t-field="b92_helpdesk_ticket.solicitud"/> | <span t-field="b92_helpdesk_ticket.name"/>"
+                        Solicitud "<span t-field="b92_helpdesk_ticket.b92_number"/> | <span t-field="b92_helpdesk_ticket.name"/>"
                     </p>
                 </td>
             </tr>

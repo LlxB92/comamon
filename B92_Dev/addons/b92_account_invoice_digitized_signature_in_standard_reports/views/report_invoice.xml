@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@class='page']/p[1]" position="before">
+            <div class="row" t-if="o.b92_digital_signature">
+                <div class="col-4">
+                    <h3>Firma Digital</h3>
+                    <img t-attf-src="data:image/*;base64,{{o.b92_digital_signature}}"/>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

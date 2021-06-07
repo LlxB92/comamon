@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_stock_picking_with_digital_signature" inherit_id="account.report_invoice_document_with_payments" primary="True">
+        <xpath expr="//div[@class='page']/h2" position="replace">
+            <h2>
+                <span t-esc="'Albaranes de entrega:' if len(o.picking_ids) > 1 else 'Albarán de entrega:'" />
+                <span t-esc="' | '.join(o.mapped('picking_ids.name'))"/>
+            </h2>
+        </xpath>
+
+        <xpath expr="//div[@class='page']/p[1]" position="before">
+            <div class="row" t-if="o.b92_digital_signature">
+                <div class="col-4">
+                    <h3>Firma Digital</h3>
+                    <img t-attf-src="data:image/*;base64,{{o.b92_digital_signature}}"/>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="report_invoice_stock_picking" inherit_id="account.report_invoice_with_payments" primary="True">
+        <xpath expr="//t[@t-foreach='docs']" position="attributes">
+            <attribute name="t-foreach">docs.filtered(lambda inv: inv.type == 'out_invoice' and inv.picking_ids)</attribute>
+        </xpath>
+
+        <xpath expr="//t[@t-call='account.report_invoice_document_with_payments']" position="attributes">
+            <attribute name="t-call">b92_account_invoice_digitized_signature_as_stock_picking.report_invoice_stock_picking_with_digital_signature</attribute>
+        </xpath>
+    </template>
+</odoo>
